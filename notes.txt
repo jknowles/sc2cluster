@@ -1,0 +1,19 @@
+# To parse replay
+
+inst\s2prot.exe data/rep1.SC2Replay > rep1.txt
+
+# Possible flags
+# -gameevts
+# -metadata
+# -msgevts - not helpful
+# -trackerevts everything
+
+
+inst\screp.exe -h
+
+# Possible flags
+# -cmds print player commands
+# -computed (computed/derived data)
+# -map (map data)
+# -mapres (map resource data)
+# -maptiles (print map data tiles

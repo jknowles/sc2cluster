@@ -1,0 +1,243 @@
+{
+  "Header": {
+    "Engine": {
+      "Name": "Brood War",
+      "ID": 1,
+      "ShortName": "BW"
+    },
+    "Frames": 10506,
+    "StartTime": "2017-09-19T16:35:32-04:00",
+    "Title": "starfield",
+    "MapWidth": 128,
+    "MapHeight": 128,
+    "AvailSlotsCount": 8,
+    "Speed": {
+      "Name": "Fastest",
+      "ID": 6
+    },
+    "Type": {
+      "Name": "Melee",
+      "ID": 2,
+      "ShortName": "Melee"
+    },
+    "SubType": 1,
+    "Host": "SigmaMu",
+    "Map": "Big Game Hunters",
+    "Players": [
+      {
+        "SlotID": 1,
+        "ID": 255,
+        "Type": {
+          "Name": "Computer",
+          "ID": 1
+        },
+        "Race": {
+          "Name": "Zerg",
+          "ID": 0,
+          "ShortName": "zerg",
+          "Letter": 90
+        },
+        "Team": 0,
+        "Name": "Jormungand Brood",
+        "Color": {
+          "Name": "Purple",
+          "ID": 3,
+          "RGB": 8929436
+        }
+      },
+      {
+        "SlotID": 3,
+        "ID": 0,
+        "Type": {
+          "Name": "Human",
+          "ID": 2
+        },
+        "Race": {
+          "Name": "Terran",
+          "ID": 1,
+          "ShortName": "ran",
+          "Letter": 84
+        },
+        "Team": 0,
+        "Name": "SigmaMu",
+        "Color": {
+          "Name": "Orange",
+          "ID": 4,
+          "RGB": 16288788
+        }
+      },
+      {
+        "SlotID": 4,
+        "ID": 255,
+        "Type": {
+          "Name": "Computer",
+          "ID": 1
+        },
+        "Race": {
+          "Name": "Protoss",
+          "ID": 2,
+          "ShortName": "toss",
+          "Letter": 80
+        },
+        "Team": 0,
+        "Name": "Venatir Tribe",
+        "Color": {
+          "Name": "Brown",
+          "ID": 5,
+          "RGB": 7352340
+        }
+      },
+      {
+        "SlotID": 5,
+        "ID": 255,
+        "Type": {
+          "Name": "Computer",
+          "ID": 1
+        },
+        "Race": {
+          "Name": "Terran",
+          "ID": 1,
+          "ShortName": "ran",
+          "Letter": 84
+        },
+        "Team": 0,
+        "Name": "Elite Guard",
+        "Color": {
+          "Name": "Red",
+          "ID": 0,
+          "RGB": 15991812
+        }
+      },
+      {
+        "SlotID": 6,
+        "ID": 1,
+        "Type": {
+          "Name": "Human",
+          "ID": 2
+        },
+        "Race": {
+          "Name": "Protoss",
+          "ID": 2,
+          "ShortName": "toss",
+          "Letter": 80
+        },
+        "Team": 0,
+        "Name": "VividWhisper",
+        "Color": {
+          "Name": "Teal",
+          "ID": 2,
+          "RGB": 2929812
+        }
+      },
+      {
+        "SlotID": 7,
+        "ID": 255,
+        "Type": {
+          "Name": "Computer",
+          "ID": 1
+        },
+        "Race": {
+          "Name": "Terran",
+          "ID": 1,
+          "ShortName": "ran",
+          "Letter": 84
+        },
+        "Team": 0,
+        "Name": "Epsilon Squadron",
+        "Color": {
+          "Name": "Yellow",
+          "ID": 7,
+          "RGB": 16579640
+        }
+      }
+    ]
+  },
+  "Commands": null,
+  "MapData": null,
+  "Computed": {
+    "LeaveGameCmds": [
+      {
+        "Frame": 9804,
+        "PlayerID": 1,
+        "Type": {
+          "Name": "Leave Game",
+          "ID": 87
+        },
+        "Reason": {
+          "Name": "Defeat",
+          "ID": 1
+        }
+      }
+    ],
+    "ChatCmds": null,
+    "WinnerTeam": 0,
+    "PlayerDescs": [
+      {
+        "PlayerID": 255,
+        "LastCmdFrame": 0,
+        "CmdCount": 0,
+        "APM": 0,
+        "StartLocation": {
+          "X": 2368,
+          "Y": 304
+        },
+        "StartDirection": 12
+      },
+      {
+        "PlayerID": 0,
+        "LastCmdFrame": 10414,
+        "CmdCount": 370,
+        "APM": 51,
+        "StartLocation": {
+          "X": 3712,
+          "Y": 2608
+        },
+        "StartDirection": 4
+      },
+      {
+        "PlayerID": 255,
+        "LastCmdFrame": 0,
+        "CmdCount": 0,
+        "APM": 0,
+        "StartLocation": {
+          "X": 3712,
+          "Y": 3760
+        },
+        "StartDirection": 5
+      },
+      {
+        "PlayerID": 255,
+        "LastCmdFrame": 0,
+        "CmdCount": 0,
+        "APM": 0,
+        "StartLocation": {
+          "X": 2080,
+          "Y": 3792
+        },
+        "StartDirection": 6
+      },
+      {
+        "PlayerID": 1,
+        "LastCmdFrame": 9804,
+        "CmdCount": 440,
+        "APM": 64,
+        "StartLocation": {
+          "X": 384,
+          "Y": 3696
+        },
+        "StartDirection": 8
+      },
+      {
+        "PlayerID": 255,
+        "LastCmdFrame": 0,
+        "CmdCount": 0,
+        "APM": 0,
+        "StartLocation": {
+          "X": 320,
+          "Y": 1552
+        },
+        "StartDirection": 10
+      }
+    ]
+  }
+}
