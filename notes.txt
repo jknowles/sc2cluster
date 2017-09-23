@@ -1,5 +1,7 @@
 # To parse replay
 
+# pip install git+git://github.com/Blizzard/s2protocol
+
 inst\s2prot.exe data/rep1.SC2Replay > rep1.txt
 
 # Possible flags
