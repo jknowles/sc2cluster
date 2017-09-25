@@ -59,6 +59,13 @@ player_df = pd.DataFrame(replay_dict['Metadata']['Struct']['Players'])
 # MEssage events are ping events and chat events
 # Details, metadata, and header are replay wide information
 
+# Clean up dataframes
+ge_df.drop(['baseBuildNum', 'buildNum', 'debugPauseEnabled', 'developmentCheatsEnabled', 
+            'gameFullyDownloaded', 'hotkeyProfile', 'multiplayerCheatsEnabled', 
+            'syncChecksummingEnabled', 'platformMac', 'testCheatsEnabled', 
+            'versionFlags', 'useGalaxyAsserts'], axis=1, inplace=True)
+
+
 replay_dataframes = {}
 
 replay_dataframes['header'] = replay_dict['Header']['Struct']
@@ -68,6 +75,17 @@ replay_dataframes['tracker'] = te_df
 replay_dataframes['gameevent'] = ge_df
 replay_dataframes['stats'] = stats_df
 
+
+zzz = ge_df[(ge_df.Name == "Cmd")]
+zzz = zzz[['ID', 'abil', 'cmdFlags', 'controlId', 'data', 'id', 
+          'loop', 'userid']]
+
+zzz['abil'].apply(pd.Series)
+zzz['data'].apply(pd.Series)
+
+
+te_df = pd.concat([te_df.loc[:,['ID','Name']], te_df['Struct'].apply(pd.Series)], 
+                    axis = 1)
 
 # Loop is recorded as frames, the replay keeps 16 frames per second
 
