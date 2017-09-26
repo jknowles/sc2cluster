@@ -7,7 +7,74 @@ import parse_sc2
 
 parse_sc2.read_sc2_replay("data/rep2.SC2Replay")
 replay_dict = parse_sc2.parse_sc2_json("tmp.json")
+replay_dataframes = parse_sc2.org_sc2_dict(replay_dict)
 
+
+plotdf = replay_dataframes["stats"]
+plotdf = replay_dataframes["gameevent"]
+plotdf = replay_dataframes["tracker"]
+
+replay_dataframes['tracker'][replay_dataframes['tracker'].Name == "PlayerSetup"]
+
+plotdf.loop.isnull().sum()
+
+plotdf[:3]
+
+
+zzz = plotdf[(plotdf['loop'] > 0) & (plotdf['loop'] <= 600)]
+ 
+
+plotdf[:, plotdf.loc['loop'] > 0 & plotdf.loc['loop'] < 200]
+
+
+map_title = replay_dataframes['details']['title']
+# Do this by player, get minimum loop value
+plotdf[plotdf['unitTypeName'].isin(["Barracks", "Gateway", "SpawningPool]")]
+
+
+# Loop < 5760 = first 6 minutes of the game
+# For each player we want to create a dataset with attributes like
+
+# Player race
+# Opponent race
+# Spawn location (top, bottom)
+# Map
+# Map size
+# Time of first barracks, spawning pool, gateway
+
+# Time of first spire, stargate, starport
+# Time of first robotics, factory, or roach warren /hydralisk den?
+# 
+# Time of first expansion
+# Time of second expansion
+# Time of first gas
+# Time of second gas geyser
+# Time of third gas geyser
+# Supply at increments of 30 seconds
+# Damage taken at increments of 30 seconds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Exploratory stuff
 replay_dict['GameEvts'][320:321]
 replay_dict['Details']['Struct']['timeUTC']
 replay_dict['Details']['Struct']['timeLocalOffset']
@@ -87,9 +154,35 @@ zzz['data'].apply(pd.Series)
 te_df = pd.concat([te_df.loc[:,['ID','Name']], te_df['Struct'].apply(pd.Series)], 
                     axis = 1)
 
-# Loop is recorded as frames, the replay keeps 16 frames per second
 
+# Loop < 5760 = first 6 minutes of the game
+# For each player we want to create a dataset with attributes like
+
+# Player race
+# Opponent race
+# Spawn location (top, bottom)
+# Map
+# Map size
+# Time of first barracks, spawning pool, gateway
+# Time of first spire, stargate, starport
+# Time of first robotics, factory, or roach warren /hydralisk den?
+# 
+# Time of first expansion
+# Time of second expansion
+# Time of first gas
+# Time of second gas geyser
+# Time of third gas geyser
+# Supply at increments of 30 seconds
+# Damage taken at increments of 30 seconds
+
+
+# Loop is recorded as frames, the replay keeps 16 frames per second
+te_df[te_df.unitTagIndex == 642].unitTypeName
 #pd.value_counts(te_df['name'])
+# plotdf = te_df[te_df.name == "UnitBorn"]
+# plotdf = te_df[te_df.name == "UnitInit"]
+# plotdf = te_df[te_df.name == "UnitDone"]
+#pd.value_counts(plotdf['creatorAbilityName'])
 #plotdf = stats_df[(stats_df.Name == "PlayerStats")]
 #
 #import matplotlib.pyplot as plt
