@@ -10,26 +10,102 @@ replay_dict = parse_sc2.parse_sc2_json("tmp.json")
 replay_dataframes = parse_sc2.org_sc2_dict(replay_dict)
 
 
-plotdf = replay_dataframes["stats"]
-plotdf = replay_dataframes["gameevent"]
-plotdf = replay_dataframes["tracker"]
-
-replay_dataframes['tracker'][replay_dataframes['tracker'].Name == "PlayerSetup"]
-
-plotdf.loop.isnull().sum()
-
-plotdf[:3]
-
-
-zzz = plotdf[(plotdf['loop'] > 0) & (plotdf['loop'] <= 600)]
- 
-
-plotdf[:, plotdf.loc['loop'] > 0 & plotdf.loc['loop'] < 200]
-
+output = replay_dataframes['players']
 
 map_title = replay_dataframes['details']['title']
+game_time = parse_sc2.get_maptime(replay_dataframes['details']['timeUTC'])
+game_version = replay_dataframes['header']['version']['major'] + (replay_dataframes['header']['version']['minor']/100 )
+
+
+spawn_location = parse_sc2.get_spawn_location(replay_dataframes['tracker'])
+
+player_data = replay_dataframes['players']
+
+# Get spawn locations
+# Get metadata for matchup -- patch, etc
+
+
+plotdf = replay_dataframes['tracker']
+zzz = parse_sc2.get_first_unit_time(plotdf, unitList = ['Nexus', 'CommandCenter', 'Hatchery'])
+parse_sc2.get_first_unit_time(plotdf, unitList = ['EngineeringBay', 'Forge', 'EvolutionChamber'])
+parse_sc2.get_first_unit_time(plotdf, unitList = ['Spire', 'Stargate', 'Starport'])
+parse_sc2.get_first_unit_time(plotdf, unitList = ['Refinery', 'Extractor', 'Assimilator'])
+parse_sc2.get_first_unit_time(plotdf, unitList = ['Factory', 'RoboticsFacility', 'RoachWarren'])
+
+
+#plotdf = replay_dataframes["stats"]
+#plotdf = replay_dataframes["gameevent"]
+#plotdf = replay_dataframes["tracker"]
+
+
+
 # Do this by player, get minimum loop value
-plotdf[plotdf['unitTypeName'].isin(["Barracks", "Gateway", "SpawningPool]")]
+
+myvalues = {'unitTypeName': ['Barracks', 'Gateway', 'SpawningPool']}
+
+
+
+plotdf = plotdf[plotdf['unitTypeName'].isin(["Barracks", "Gateway", "SpawningPool"])]
+plotdf.groupby('controlPlayerId')['loop'].min()
+
+
+
+
+
+
+unitList = ['Refinery', 'Extractor', 'Assimilator']
+parse_sc2.get_timings(plotdf, unitStub = "gasTiming", unitList = unitList, n = 4)
+unitList = ['Nexus', 'CommandCenter', 'Hatchery']
+parse_sc2.get_timings(plotdf, unitStub = "townHallTiming", unitList = unitList, n = 2)
+
+
+
+
+plotdf = plotdf[plotdf['unitTypeName'].isin(unitList)]
+out = plotdf.groupby('controlPlayerId')['loop'].unique()
+out = pd.DataFrame(out)
+
+out = out.loop.apply(pd.Series)
+out = out.reset_index()
+["gasTiming_" + s  for s in [str(x) for x in range(1, 8)]]
+out.columns = [["playerId"] + ["gasTiming_" + s  for s in [str(x) for x in range(1, 8)]]]
+
+# Write a function to get stats at certain values
+l = list(range(1,22))
+l = [480*x for x in l]
+
+
+def get_econ_timing(data, timeList, var):
+    data = data[data['loop'].isin(timeList)]
+    var = ['playerId', 'loop'] + var
+    data = data.loc[:,var]
+    data = pd.wide_to_long(data, ["scoreValue"], i=["playerId", 'loop'], j="score", 
+                 suffix = "\\D+")
+    data.reset_index(inplace=True)  
+    return(data)
+
+
+
+scoreIndex = ['scoreValueMineralsUsedCurrentEconomy', 
+              'scoreValueVespeneUsedCurrentEconomy', 
+              'scoreValueWorkersActiveCount', 
+              'scoreValueFoodMade', 
+              'scoreValueFoodUsed',
+              'scoreValueMineralsUsedCurrentTechnology',
+              'scoreValueVespeneLostArmy', 
+              'scoreValueMineralsLostArmy',
+              'scoreValueVespeneKilledArmy', 
+              'scoreValueMineralsKilledArmy']
+
+
+plotdf = replay_dataframes["stats"]
+zzz = get_econ_timing(plotdf, timeList = l, var = scoreIndex)
+
+zzz = zzz.pivot_table(index = 'playerId', columns = ['score', 'loop'])
+zzz = zzz.reset_index(inplace=True)
+
+
+
 
 
 # Loop < 5760 = first 6 minutes of the game

@@ -65,3 +65,50 @@ def org_sc2_dict(replay_dict):
     replay_dataframes['gameevent'] = ge_df
     replay_dataframes['stats'] = stats_df
     return(replay_dataframes)
+
+
+def get_timings(data, unitStub, unitList, n):
+    import pandas as pd
+    data = data[data['unitTypeName'].isin(unitList)]
+    data = data[(data['loop'] >0)]
+    data = data.groupby('controlPlayerId')['loop'].unique()
+    data = pd.DataFrame(data)
+    data = data.loop.apply(pd.Series)
+    data = pd.DataFrame(data)
+    data = data.reset_index()
+    data = data.iloc[:, 0:n+1]
+    colNames = [['playerId'] + 
+                [unitStub + s for s in [str(x) for x in range(1, len(data.columns))]]]
+    data.columns = colNames
+    return(data)
+
+
+def get_first_unit_time(data, unitList, name = None):
+    if name is None:
+        name = "unitTime"
+    import pandas as pd
+    data = data[data['unitTypeName'].isin(unitList)]
+    data = data[(data['loop'] >0)]
+    data = data.groupby('controlPlayerId')['loop'].min()
+    data = pd.DataFrame(data)
+    data = data.reset_index()
+    data.columns = ['playerId', name]
+    return(data)
+
+
+def get_spawn_location(data):
+    unitList = ['CommandCenter', 'Hatchery', 'Nexus']
+    data = data[data['unitTypeName'].isin(unitList)]
+    data = data[(data['loop']) < 200]
+    data = data[['controlPlayerId', 'x', 'y']]
+    return(data)
+
+
+
+def get_maptime(ts):
+    # Time conversion notes https://www.powershelladmin.com/wiki/Convert_between_Windows_and_Unix_epoch_with_Python_and_Perl
+    from datetime import datetime as dt
+    ts = ts / 10000000 # from nanoseconds to seconds
+    ts = ts - 11644473600 # offset for Windows
+    return(dt.fromtimestamp(ts))
+    
